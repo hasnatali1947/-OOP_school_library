@@ -1,7 +1,5 @@
-# frozen_string_literal: true
-
 require_relative './person'
-# Represents a teacher in the school.
+
 class Teacher < Person
   attr_accessor :specialization
 

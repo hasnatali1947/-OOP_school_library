@@ -1,7 +1,5 @@
-# frozen_string_literal: true
-
 require_relative './person'
-# Represents a student in the school.
+
 class Student < Person
   attr_accessor :classroom
 
@@ -11,6 +9,6 @@ class Student < Person
   end
 
   def play_hooky
-    "¯\(ツ)/¯"
+    '¯(ツ)/¯'
   end
 end
