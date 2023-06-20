@@ -28,6 +28,5 @@ end
 
   p1.name = "Hasnat"
   p1.age = 25
-
   puts "update name #{p1.name}"
   puts "update age #{p1.age}"
