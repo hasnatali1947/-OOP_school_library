@@ -65,7 +65,6 @@ To get a local copy up and running, follow these steps.
 `
 git clone "https://github.com/hasnatali1947/-OOP_school_library"
 `
-
 ### Prerequisites
 
 In order to run this project you need:
