@@ -1,4 +1,4 @@
-require_relative './person'
+require_relative 'person'
 require_relative 'base_decorator'
 
 person = Person.new(22, 'maximilianus')
