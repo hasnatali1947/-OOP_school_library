@@ -1,6 +1,6 @@
 require_relative 'book'
 require_relative 'person'
-require_relative 'students'
+require_relative 'students' # Add this line
 require_relative 'teacher'
 require_relative 'rental'
 
@@ -51,14 +51,17 @@ class App
     puts 'Person created successfully'
   end
 
-  def create_student(name, age)
+  def create_student(age, name)
     print 'Has parent permission? [Y/N]: '
     parent_permission = gets.chomp.downcase == 'y'
 
-    @people << Student.new(age, nil, name, parent_permission: parent_permission)
+    print 'Classroom: '
+    classroom = gets.chomp
+
+    @people << Student.new(age, classroom, name, parent_permission: parent_permission)
   end
 
-  def create_teacher(name, age)
+  def create_teacher(age, name)
     print 'Specialization: '
     specialization = gets.chomp
 
