@@ -15,7 +15,7 @@ class Person < Nameable
   attr_reader :id
 
   def can_use_services?
-    return unless @age && @parent_permission
+    return false unless @age && @parent_permission
 
     true
   end
