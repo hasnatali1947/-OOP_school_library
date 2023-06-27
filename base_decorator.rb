@@ -1,6 +1,3 @@
-require_relative 'nameable'
-require_relative './student'
-
 class BaseDecorater < Nameable
   def initialize(nameable)
     super()
@@ -21,6 +18,6 @@ end
 class TrimmerDecorator < BaseDecorater
   def correct_name
     name = @nameable.correct_name[0, 10]
-    name.length < 10 ? name : "#{name}..."
+    name.size < 10 ? name : "#{name}..."
   end
 end

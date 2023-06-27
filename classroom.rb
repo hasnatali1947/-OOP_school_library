@@ -1,8 +1,8 @@
-require_relative 'student'
+require_relative 'students'
 
 class Classroom
   attr_accessor :label
-  attr_reader :student
+  attr_reader :students
 
   def initialize(label)
     @label = label
