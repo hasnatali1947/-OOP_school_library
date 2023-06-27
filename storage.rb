@@ -13,14 +13,10 @@ module Storage
   end
 
   def save_people
-    file_path = File.join('data', 'people.json')
     people_data = @people.map do |person|
-      if person.is_a?(Student)
-        person.to_h.merge('type' => 'student')
-      elsif person.is_a?(Teacher)
-        person.to_h.merge('type' => 'teacher')
-      end
+      person.to_h.except('parent_permission')
     end.compact
+    file_path = File.join('data', 'people.json')
     File.write(file_path, JSON.generate(people_data))
   rescue StandardError => e
     puts "An error occurred while saving people: #{e.message}"
