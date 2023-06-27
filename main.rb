@@ -1,6 +1,7 @@
 require_relative 'app'
 
 APP = App.new
+APP.load_data
 
 begin
   puts 'Welcome to School Library App!'
@@ -31,6 +32,7 @@ begin
       APP.list_rentals_by_person_id
     when 7
       puts 'Thank you for using this app!'
+      APP.save_data
       exit(0)
     else
       puts 'That is not a valid option'

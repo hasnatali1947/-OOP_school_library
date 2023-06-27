@@ -28,6 +28,16 @@ class Person < Nameable
     Rental.new(date, book, self)
   end
 
+  def to_h
+    {
+      'id' => @id,
+      'name' => @name,
+      'age' => @age,
+      'parent_permission' => @parent_permission,
+      'rentals' => @rentals.map(&:to_h) # Convert rentals to hash
+    }
+  end
+
   private
 
   def of_age?
