@@ -13,10 +13,16 @@ module Storage
   end
 
   def save_people
-    people_data = @people.map do |person|
-      person.to_h.except('parent_permission')
-    end.compact
     file_path = File.join('data', 'people.json')
+    people_data = @people.map do |person|
+      next if person.id.nil? # Skip saving person if ID is nil
+
+      if person.is_a?(Student)
+        person.to_h.merge('type' => 'student')
+      elsif person.is_a?(Teacher)
+        person.to_h.merge('type' => 'teacher')
+      end
+    end.compact
     File.write(file_path, JSON.generate(people_data))
   rescue StandardError => e
     puts "An error occurred while saving people: #{e.message}"
@@ -72,8 +78,10 @@ module Storage
       @rentals = JSON.parse(json).map do |data|
         book = books.find { |b| b.title == data['book']['title'] && b.author == data['book']['author'] }
         person = people.find { |p| p.id == data['person']['id'] }
+        next unless book && person # Skip the rental creation if book or person not found
+
         Rental.new(data['date'], book, person)
-      end
+      end.compact
     else
       @rentals = []
     end
