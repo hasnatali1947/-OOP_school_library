@@ -20,7 +20,7 @@ module Storage
       if person.is_a?(Student)
         person.to_h.merge('type' => 'student')
       elsif person.is_a?(Teacher)
-        person.to_h.merge('type' => 'teacher')
+        person.to_h.merge('type' => 'teacher', 'parent_permission' => person.parent_permission)
       end
     end.compact
     File.write(file_path, JSON.generate(people_data))
