@@ -1,14 +1,28 @@
+require 'fileutils'
 require_relative 'book'
 require_relative 'person'
-require_relative 'students' # Add this line
+require_relative 'students'
 require_relative 'teacher'
 require_relative 'rental'
+require_relative 'storage'
+require 'json'
 
 class App
+  # DATA_DIRECTORY = 'data'
+  include Storage
+
+  attr_reader :books, :people, :rentals
+
   def initialize
     @books = []
     @people = []
     @rentals = []
+    create_data_directory
+  end
+
+  def create_data_directory
+    data_directory = 'data'
+    FileUtils.mkdir_p(data_directory)
   end
 
   def list_books
@@ -75,7 +89,8 @@ class App
     print 'Author: '
     author = gets.chomp
 
-    @books << Book.new(title, author)
+    book = Book.new(title, author)
+    @books << book
     puts 'Book created successfully'
   end
 
@@ -119,3 +134,5 @@ class App
     end
   end
 end
+
+# end
