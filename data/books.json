@@ -1,0 +1,1 @@
+[{"title":"book","author":"khan","rentals":[]},{"title":"computer book ","author":"new version","rentals":[]},{"title":"New book","author":"Science","rentals":[]},{"title":"Computer Science","author":"New version","rentals":[{"date":"1990/09/08","book":{"title":"Computer Science","author":"New version"},"person":{"id":826,"name":"Naji","age":"Naji","parent_permission":true}}]}]

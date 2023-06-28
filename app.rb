@@ -1,17 +1,28 @@
+require 'fileutils'
 require_relative 'book'
 require_relative 'person'
-require_relative 'students'
+require_relative 'students' # Add this line
 require_relative 'teacher'
 require_relative 'rental'
-require_relative 'functionality'
+require_relative 'storage'
 require 'json'
 
-class App < Functionality
+class App
+  # DATA_DIRECTORY = 'data'
+  include Storage
+
+  attr_reader :books, :people, :rentals
+
   def initialize
-    super()
     @books = []
     @people = []
     @rentals = []
+    create_data_directory
+  end
+
+  def create_data_directory
+    data_directory = 'data'
+    FileUtils.mkdir_p(data_directory)
   end
 
   def list_books
@@ -26,12 +37,7 @@ class App < Functionality
     return puts 'No people found' if @people.empty?
 
     @people.each do |person|
-      if person.instance_of?(Student)
-        puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-      elsif person.instance_of?(Teacher)
-        puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}, " \
-             "specialization: #{person.specialization}"
-      end
+      puts "[#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
     end
   end
 
@@ -62,7 +68,11 @@ class App < Functionality
   def create_student(age, name)
     print 'Has parent permission? [Y/N]: '
     parent_permission = gets.chomp.downcase == 'y'
-    @people << Student.new(age, nil, name, parent_permission: parent_permission)
+
+    print 'Classroom: '
+    classroom = gets.chomp
+
+    @people << Student.new(age, classroom, name, parent_permission: parent_permission)
   end
 
   def create_teacher(age, name)
@@ -79,17 +89,26 @@ class App < Functionality
     print 'Author: '
     author = gets.chomp
 
-    @books << Book.new(title, author)
+    book = Book.new(title, author)
+    @books << book
     puts 'Book created successfully'
   end
 
   def create_rental
-    display_books_list
+    puts 'Select a book from the following list by number'
+    @books.each_with_index do |book, index|
+      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
+    end
+
     book_index = gets.chomp.to_i
 
     puts
 
-    display_people_list
+    puts 'Select a person from the following list by number (not id)'
+    @people.each_with_index do |person, index|
+      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+    end
+
     person_index = gets.chomp.to_i
 
     puts
@@ -101,21 +120,6 @@ class App < Functionality
     puts 'Rental created successfully'
   end
 
-  def display_books_list
-    puts 'Select a book from the following list by number'
-    @books.each_with_index do |book, index|
-      puts "#{index}) Title: \"#{book.title}\", Author: #{book.author}"
-    end
-  end
-
-  def display_people_list
-    puts 'Select a person from the following list by number (not id)'
-    @people.each_with_index do |person, index|
-      puts "#{index}) [#{person.class}] Name: #{person.name}, ID: #{person.id}, Age: #{person.age}" \
-           "#{person.instance_of?(Teacher) ? ", specialization: #{person.specialization}" : ''}"
-    end
-  end
-
   def list_rentals_by_person_id
     print 'ID of person: '
     id = gets.chomp
@@ -125,21 +129,10 @@ class App < Functionality
     return puts "No rentals found for ID(#{id})" if selected_rentals.empty?
 
     puts 'Rentals:'
-
     selected_rentals.each do |rental|
       puts "#{rental.date}, Book \"#{rental.book.title}\" by #{rental.book.author}"
     end
   end
-
-  def add_data
-    write_books_to_file
-    write_people_to_file
-    write_rentals_to_file
-  end
-
-  def load_data
-    load_books
-    load_people
-    load_rentals
-  end
 end
+
+# end
