@@ -1,7 +1,7 @@
 require 'fileutils'
 require_relative 'book'
 require_relative 'person'
-require_relative 'students' # Add this line
+require_relative 'students' 
 require_relative 'teacher'
 require_relative 'rental'
 require_relative 'storage'
