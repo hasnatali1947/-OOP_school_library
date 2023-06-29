@@ -1,3 +1,4 @@
+require_relative './person.rb'
 class Teacher < Person
   attr_accessor :classroom, :specialization, :parent_permission
 
