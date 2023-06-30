@@ -55,12 +55,12 @@ RSpec.describe Person do
   end
 
   context 'when adding a rental' do
-    let(:book) { Book.new('CS', 'Grace') }
-    let(:person) { Person.new(17, 'Milli', parent_permission: false) }
+    let(:book) { Book.new('CS', 'Naji') }
+    let(:person) { Person.new(17, 'Ali', parent_permission: false) }
     let(:rental) { Rental.new('2023-02-22', book, person) }
 
     before(:each) do
-      person.add_rentals(book, '2023-02-22')
+      person.add_rental(book, '2023-02-22')
     end
 
     it 'should have rental data' do

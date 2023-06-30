@@ -1,5 +1,5 @@
 require_relative '../person'
-require_relative '../students.rb'
+require_relative '../students'
 require_relative '../classroom'
 
 RSpec.describe Student do
@@ -43,6 +43,4 @@ RSpec.describe Student do
       expect(student.to_h).to eq(expected_hash)
     end
   end
-
-  
 end

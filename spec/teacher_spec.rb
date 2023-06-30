@@ -1,5 +1,5 @@
-require_relative '../teacher.rb'
-require_relative '../person.rb'
+require_relative '../teacher'
+require_relative '../person'
 
 RSpec.describe Teacher do
   let(:teacher) { Teacher.new(35, 'Mathematics', 'John Doe') }

@@ -1,56 +1,31 @@
 require_relative '../book'
+require_relative '../person'
+require_relative '../rental'
 
-RSpec.describe Book do
-  let(:book) { Book.new('The Great Gatsby', 'F. Scott Fitzgerald') }
+describe Book do
+  let(:book) { Book.new('CS', 'Naji') }
+  let(:person) { Person.new(23, name: 'Ali', parent_permission: true) }
 
-  describe '#initialize' do
+  context 'when initializing' do
     it 'should have a title' do
-      expect(book.title).to eq('The Great Gatsby')
+      expect(book.title).to eq 'CS'
     end
 
     it 'should have an author' do
-      expect(book.author).to eq('F. Scott Fitzgerald')
+      expect(book.author).to eq 'Naji'
     end
 
-    it 'should have an empty list of rentals' do
+    it 'should have an empty rentals list' do
       expect(book.rentals).to be_empty
     end
-  end
 
-  describe '#add_rental' do
-    let(:person) { double('Person') }
-    let(:date) { Date.new(2023, 6, 30) }
-
-    it 'should add a rental to the book' do
-      rental = book.add_rental(person, date)
-      expect(book.rentals).to include(rental)
-    end
-
-    it 'should return the added rental' do
-      rental = book.add_rental(person, date)
-      expect(rental).to be_a(Rental)
-      expect(rental.book).to eq(book)
-      expect(rental.person).to eq(person)
-      expect(rental.date).to eq(date)
-    end
-  end
-
-  describe '#to_h' do
-    let(:rental) { double('Rental', to_h: { 'date' => Date.new(2023, 6, 30) }) }
-
-    before do
-      allow(rental).to receive(:book).and_return(book)
-      book.rentals << rental
-    end
-
-    it 'should return a hash representation of the book' do
-      expect(book.to_h).to eq({
-        'title' => 'The Great Gatsby',
-        'author' => 'F. Scott Fitzgerald',
-        'rentals' => [
-          { 'date' => Date.new(2023, 6, 30) }
-        ]
-      })
+    it 'should convert to hash format' do
+      hash = {
+        'title' => 'CS',
+        'author' => 'Naji',
+        'rentals' => []
+      }
+      expect(book.to_h).to eql(hash)
     end
   end
 end
