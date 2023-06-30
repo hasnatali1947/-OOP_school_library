@@ -1,7 +1,6 @@
 require_relative '../nameable'
 require_relative '../base_decorator'
 
-
 describe TrimmerDecorator do
   let(:nameable) { Nameable.new }
   let(:decorator) { TrimmerDecorator.new(nameable) }
